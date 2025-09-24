@@ -40,17 +40,20 @@ jobs:
           mkdir -p debian/usr/bin
           mkdir -p debian/usr/share/man/man1
           mkdir -p debian/usr/share/dosbox-staging
-          mkdir -p debian/usr/local/share/dosbox-staging
-          mkdir -p debian/usr/local/share/dosbox-staging/glshaders
 
           # Copy files according to contents.txt
           cp dosbox-staging.desktop debian/usr/share/applications/
           cp dosbox-staging/LICENSE debian/usr/share/doc/dosbox-staging/
           cp dosbox-staging/README debian/usr/share/doc/dosbox-staging/
-          cp dosbox-staging/dosbox debian/usr/bin/
-          cp dosbox-staging/man/dosbox.1 debian/usr/share/man/man1/
-          cp -r dosbox-staging/resources debian/usr/share/dosbox-staging/
-          cp -r dosbox-staging/resources/glshaders debian/usr/local/share/dosbox-staging/
+          cp dosbox-staging/dosbox debian/usr/bin/dosbox-staging
+          cp dosbox-staging/man/dosbox.1 debian/usr/share/man/man1/dosbox-staging.1
+
+          # Copy resources directory contents
+          find dosbox-staging/resources -maxdepth 1 -type d -not -path "dosbox-staging/resources" | while read dir; do
+            resource_name=$(basename "$dir")
+            mkdir -p "debian/usr/share/dosbox-staging/$resource_name"
+            cp -r "$dir"/* "debian/usr/share/dosbox-staging/$resource_name"/
+          done
 
           # Copy icons
           cp dosbox-staging/icons/hicolor/1024x1024/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/1024x1024/apps/
@@ -82,5 +85,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dosbox-staging-deb-package
-          path: dosbox-staging.deb
+          path: debian
           retention-days: 7
