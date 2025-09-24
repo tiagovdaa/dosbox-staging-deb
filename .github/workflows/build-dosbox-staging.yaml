@@ -15,12 +15,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Clone dosbox-staging repository
+        run: git clone https://github.com/dosbox-staging/dosbox-staging.git dosbox-staging-src
+
       - name: Build Docker image
         run: docker build -t dosbox-staging-builder -f Dockerfile .
         working-directory: .
 
       - name: Run build script in Docker container
-        run: docker run --rm -v "${{ github.workspace }}:/dosbox-staging-src" dosbox-staging-builder /build.sh
+        run: docker run --rm -v "${{ github.workspace }}/dosbox-staging-src:/dosbox-staging-src" dosbox-staging-builder /build.sh
 
       - name: Upload .deb package as artifact
         uses: actions/upload-artifact@v4
