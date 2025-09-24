@@ -1,6 +1,7 @@
 FROM debian:trixie
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y \
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     pkg-config \
     libsdl2-dev \
@@ -21,12 +22,16 @@ RUN apt-get update && apt-get install -y \
     libxcursor-dev \
     libxinerama-dev \
     libxi-dev \
-    libiir-dev \
     doxygen \
     g++-multilib \
     libfftw3-dev \
+    libiir-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /dosbox-staging-src
+
+# Disable Git's dubious ownership check
+RUN git config --global --add safe.directory /dosbox-staging-src
+
 COPY build.sh /build.sh
 RUN chmod +x /build.sh
