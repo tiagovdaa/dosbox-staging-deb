@@ -42,7 +42,7 @@ jobs:
           mkdir -p debian/usr/share/dosbox
 
           # Copy files according to contents.txt
-          cp dosbox-staging/dosbox-staging.desktop debian/usr/share/applications/
+          cp dosbox-staging.desktop debian/usr/share/applications/
           cp dosbox-staging/LICENSE debian/usr/share/doc/dosbox-staging/
           cp dosbox-staging/README debian/usr/share/doc/dosbox-staging/
           cp dosbox-staging/dosbox debian/usr/bin/
