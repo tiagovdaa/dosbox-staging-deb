@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=DOSBox Staging
 Comment=DOS emulator
-Exec=/usr/bin/dosbox
+Exec=/usr/bin/dosbox-staging
 Icon=org.dosbox-staging.dosbox-staging
 Terminal=false
 Type=Application
