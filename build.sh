@@ -9,7 +9,7 @@ echo "Starting build process..."
 BUILD_DIR="build-deb"
 
 ## Create a build directory and navigate into it
-## mkdir -p "$BUILD_DIR"
+mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 
 ## Configure the build using CMake and Ninja
