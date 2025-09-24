@@ -81,9 +81,15 @@ jobs:
       - name: Build DEB package
         run: dpkg-deb --build debian dosbox-staging.deb
 
+      - name: Prepare artifact directory
+        run: |
+          mkdir deb_package
+          mv dosbox-staging.deb deb_package/
+          mv debian deb_package/
+
       - name: Upload .deb package as artifact
         uses: actions/upload-artifact@v4
         with:
           name: dosbox-staging-deb-package
-          path: debian
+          path: deb_package
           retention-days: 7
