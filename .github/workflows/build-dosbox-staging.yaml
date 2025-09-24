@@ -66,7 +66,7 @@ jobs:
           echo "Package: dosbox-staging" > debian/DEBIAN/control
           echo "Version: 0.82.2-1" >> debian/DEBIAN/control
           echo "Architecture: amd64" >> debian/DEBIAN/control
-          echo "Maintainer: Your Name <your.email@example.com>" >> debian/DEBIAN/control
+          echo "Maintainer: Tiago Almeida <tiagovdaa@gmail.com>" >> debian/DEBIAN/control
           echo "Description: DOSBox Staging is a modern DOS emulator." >> debian/DEBIAN/control
           echo "Section: games" >> debian/DEBIAN/control
           echo "Priority: optional" >> debian/DEBIAN/control
