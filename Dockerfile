@@ -10,7 +10,7 @@ libpng-dev \
 libopus-dev \
 libfluidsynth-dev \
 libslirp-dev \
-libalsa-dev \
+libasound2-dev \
 libx11-dev \
 libxext-dev \
 libxrandr-dev \ 
