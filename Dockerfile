@@ -1,4 +1,4 @@
-FROM debian:trixie-slim
+FROM debian:trixie
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y \
     libxcursor-dev \
     libxinerama-dev \
     libxi-dev \
+    libiir-dev \
     doxygen \
     g++-multilib \
     libfftw3-dev \
