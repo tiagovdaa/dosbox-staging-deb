@@ -7,6 +7,7 @@ echo "Starting build process..."
 
 ## Define the build directory
 BUILD_DIR="build-deb"
+SOURCE_DIR="/dosbox-staging-src"
 
 ## Create a build directory and navigate into it
 mkdir -p "$BUILD_DIR"
@@ -16,7 +17,7 @@ cd "$BUILD_DIR"
 ## The CMAKE_INSTALL_PREFIX is set to /usr so it installs to the standard system location
 ## This is important for a proper .deb package
 echo "Running CMake configuration..."
-cmake -DCPACK_DEBIAN_PACKAGE_CONTROL_EXTRA=./debian/control-extra -DCMAKE_INSTALL_PREFIX=/usr -G Ninja ..
+cmake -DCPACK_DEBIAN_PACKAGE_CONTROL_EXTRA=./debian/control-extra -DCMAKE_INSTALL_PREFIX=/usr -G Ninja "$SOURCE_DIR"
 
 ## Compile the project
 echo "Compiling Dosbox-Staging..."
