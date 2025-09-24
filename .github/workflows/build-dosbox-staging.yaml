@@ -50,7 +50,7 @@ jobs:
           cp dosbox-staging/dosbox debian/usr/bin/
           cp dosbox-staging/man/dosbox.1 debian/usr/share/man/man1/
           cp -r dosbox-staging/resources debian/usr/share/dosbox-staging/
-          cp -r dosbox-staging/glshaders debian/usr/local/share/dosbox-staging/
+          cp -r dosbox-staging/resources/glshaders debian/usr/local/share/dosbox-staging/
 
           # Copy icons
           cp dosbox-staging/icons/hicolor/1024x1024/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/1024x1024/apps/
