@@ -18,7 +18,8 @@ jobs:
       - name: Download pre-built binary
         run: |
           wget https://github.com/dosbox-staging/dosbox-staging/releases/download/v0.82.2/dosbox-staging-linux-x86_64-v0.82.2.tar.xz
-          tar -xf dosbox-staging-linux-x86_64-v0.82.2.tar.xz
+          mkdir dosbox-staging
+          tar -xf dosbox-staging-linux-x86_64-v0.82.2.tar.xz -C dosbox-staging --strip-components=1
 
       - name: Create debian directory structure
         run: |
@@ -41,25 +42,25 @@ jobs:
           mkdir -p debian/usr/share/dosbox
 
           # Copy files according to contents.txt
-          cp dosbox-staging.desktop debian/usr/share/applications/
-          cp LICENSE debian/usr/share/doc/dosbox-staging/
-          cp README debian/usr/share/doc/dosbox-staging/
-          cp dosbox debian/usr/bin/
-          cp man/dosbox.1 debian/usr/share/man/man1/
-          cp -r resources debian/usr/share/dosbox/
+          cp dosbox-staging/dosbox-staging.desktop debian/usr/share/applications/
+          cp dosbox-staging/LICENSE debian/usr/share/doc/dosbox-staging/
+          cp dosbox-staging/README debian/usr/share/doc/dosbox-staging/
+          cp dosbox-staging/dosbox debian/usr/bin/
+          cp dosbox-staging/man/dosbox.1 debian/usr/share/man/man1/
+          cp -r dosbox-staging/resources debian/usr/share/dosbox/
 
           # Copy icons
-          cp icons/hicolor/1024x1024/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/1024x1024/apps/
-          cp icons/hicolor/128x128/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/128x128/apps/
-          cp icons/hicolor/16x16/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/16x16/apps/
-          cp icons/hicolor/22x22/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/22x22/apps/
-          cp icons/hicolor/24x24/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/24x24/apps/
-          cp icons/hicolor/256x256/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/256x256/apps/
-          cp icons/hicolor/32x32/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/32x32/apps/
-          cp icons/hicolor/48x48/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/48x48/apps/
-          cp icons/hicolor/512x512/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/512x512/apps/
-          cp icons/hicolor/96x96/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/96x96/apps/
-          cp icons/hicolor/scalable/apps/org.dosbox-staging.dosbox-staging.svg debian/usr/share/icons/hicolor/scalable/apps/
+          cp dosbox-staging/icons/hicolor/1024x1024/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/1024x1024/apps/
+          cp dosbox-staging/icons/hicolor/128x128/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/128x128/apps/
+          cp dosbox-staging/icons/hicolor/16x16/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/16x16/apps/
+          cp dosbox-staging/icons/hicolor/22x22/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/22x22/apps/
+          cp dosbox-staging/icons/hicolor/24x24/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/24x24/apps/
+          cp dosbox-staging/icons/hicolor/256x256/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/256x256/apps/
+          cp dosbox-staging/icons/hicolor/32x32/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/32x32/apps/
+          cp dosbox-staging/icons/hicolor/48x48/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/48x48/apps/
+          cp dosbox-staging/icons/hicolor/512x512/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/512x512/apps/
+          cp dosbox-staging/icons/hicolor/96x96/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/96x96/apps/
+          cp dosbox-staging/icons/hicolor/scalable/apps/org.dosbox-staging.dosbox-staging.svg debian/usr/share/icons/hicolor/scalable/apps/
 
       - name: Create control file
         run: |
