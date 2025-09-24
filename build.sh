@@ -24,7 +24,7 @@ ninja
 
 ## Create the .deb package using CPack
 echo "Creating .deb package..."
-cpack -G DEB
+cpack --config build/CPackConfig.cmake
 
 ## The .deb file is now created in the build directory.
 ## We will copy it to a known location for the GitHub Actions workflow to find.
