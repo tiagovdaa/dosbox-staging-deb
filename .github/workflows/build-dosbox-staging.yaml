@@ -15,19 +15,68 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Clone dosbox-staging repository
-        run: git clone https://github.com/dosbox-staging/dosbox-staging.git dosbox-staging-src
+      - name: Download pre-built binary
+        run: |
+          wget https://github.com/dosbox-staging/dosbox-staging/releases/download/v0.82.2/dosbox-staging-linux-x86_64-v0.82.2.tar.xz
+          tar -xf dosbox-staging-linux-x86_64-v0.82.2.tar.xz
 
-      - name: Build Docker image
-        run: docker build -t dosbox-staging-builder -f Dockerfile .
-        working-directory: .
+      - name: Create debian directory structure
+        run: |
+          mkdir -p debian/DEBIAN
+          mkdir -p debian/usr/share/applications
+          mkdir -p debian/usr/share/icons/hicolor/1024x1024/apps
+          mkdir -p debian/usr/share/icons/hicolor/128x128/apps
+          mkdir -p debian/usr/share/icons/hicolor/16x16/apps
+          mkdir -p debian/usr/share/icons/hicolor/22x22/apps
+          mkdir -p debian/usr/share/icons/hicolor/24x24/apps
+          mkdir -p debian/usr/share/icons/hicolor/256x256/apps
+          mkdir -p debian/usr/share/icons/hicolor/32x32/apps
+          mkdir -p debian/usr/share/icons/hicolor/48x48/apps
+          mkdir -p debian/usr/share/icons/hicolor/512x512/apps
+          mkdir -p debian/usr/share/icons/hicolor/96x96/apps
+          mkdir -p debian/usr/share/icons/hicolor/scalable/apps
+          mkdir -p debian/usr/share/doc/dosbox-staging
+          mkdir -p debian/usr/bin
+          mkdir -p debian/usr/share/man/man1
+          mkdir -p debian/usr/share/dosbox
 
-      - name: Run build script in Docker container
-        run: docker run --rm -v "${{ github.workspace }}/dosbox-staging-src:/dosbox-staging-src" dosbox-staging-builder /build.sh
+          # Copy files according to contents.txt
+          cp dosbox-staging.desktop debian/usr/share/applications/
+          cp LICENSE debian/usr/share/doc/dosbox-staging/
+          cp README debian/usr/share/doc/dosbox-staging/
+          cp dosbox debian/usr/bin/
+          cp man/dosbox.1 debian/usr/share/man/man1/
+          cp -r resources debian/usr/share/dosbox/
+
+          # Copy icons
+          cp icons/hicolor/1024x1024/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/1024x1024/apps/
+          cp icons/hicolor/128x128/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/128x128/apps/
+          cp icons/hicolor/16x16/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/16x16/apps/
+          cp icons/hicolor/22x22/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/22x22/apps/
+          cp icons/hicolor/24x24/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/24x24/apps/
+          cp icons/hicolor/256x256/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/256x256/apps/
+          cp icons/hicolor/32x32/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/32x32/apps/
+          cp icons/hicolor/48x48/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/48x48/apps/
+          cp icons/hicolor/512x512/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/512x512/apps/
+          cp icons/hicolor/96x96/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/96x96/apps/
+          cp icons/hicolor/scalable/apps/org.dosbox-staging.dosbox-staging.svg debian/usr/share/icons/hicolor/scalable/apps/
+
+      - name: Create control file
+        run: |
+          echo "Package: dosbox-staging" > debian/DEBIAN/control
+          echo "Version: 0.82.2-1" >> debian/DEBIAN/control
+          echo "Architecture: amd64" >> debian/DEBIAN/control
+          echo "Maintainer: Your Name <your.email@example.com>" >> debian/DEBIAN/control
+          echo "Description: DOSBox Staging is a modern DOS emulator." >> debian/DEBIAN/control
+          echo "Section: games" >> debian/DEBIAN/control
+          echo "Priority: optional" >> debian/DEBIAN/control
+
+      - name: Build DEB package
+        run: dpkg-deb --build debian dosbox-staging.deb
 
       - name: Upload .deb package as artifact
         uses: actions/upload-artifact@v4
         with:
           name: dosbox-staging-deb-package
-          path: ./dosbox-staging.deb
+          path: dosbox-staging.deb
           retention-days: 7
