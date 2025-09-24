@@ -39,7 +39,7 @@ jobs:
           mkdir -p debian/usr/share/doc/dosbox-staging
           mkdir -p debian/usr/bin
           mkdir -p debian/usr/share/man/man1
-          mkdir -p debian/usr/share/dosbox
+          mkdir -p debian/usr/share/dosbox-staging
 
           # Copy files according to contents.txt
           cp dosbox-staging.desktop debian/usr/share/applications/
@@ -47,7 +47,7 @@ jobs:
           cp dosbox-staging/README debian/usr/share/doc/dosbox-staging/
           cp dosbox-staging/dosbox debian/usr/bin/
           cp dosbox-staging/man/dosbox.1 debian/usr/share/man/man1/
-          cp -r dosbox-staging/resources debian/usr/share/dosbox/
+          cp -r dosbox-staging/resources debian/usr/share/dosbox-staging/
 
           # Copy icons
           cp dosbox-staging/icons/hicolor/1024x1024/apps/org.dosbox-staging.dosbox-staging.png debian/usr/share/icons/hicolor/1024x1024/apps/
