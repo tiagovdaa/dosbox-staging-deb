@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y \
     libxi-dev \
     doxygen \
     g++-multilib \
+    libfftw3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /dosbox-staging-src
